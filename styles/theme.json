@@ -1,0 +1,15 @@
+{
+  "light": {
+    "background": "from-blue-100 to-blue-200",
+    "text": "text-blue-600",
+    "subText": "text-gray-600",
+    "settingsButton": "text-gray-600 hover:text-gray-800"
+  },
+  "dark": {
+    "background": "from-gray-800 to-gray-900",
+    "text": "text-green-400",
+    "subText": "text-gray-400",
+    "settingsButton": "text-gray-400 hover:text-gray-200"
+  }
+}
+
