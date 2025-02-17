@@ -20,21 +20,25 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({
   const [theme, setTheme] = useState<Theme>("light");
 
   useEffect(() => {
-    const savedTheme = localStorage.getItem("theme") as Theme;
+    if (typeof window === undefined) return
+
+    const savedTheme = window.localStorage.getItem("theme") as Theme;
     if (savedTheme) {
       if (savedTheme === "light" || savedTheme === "dark") {
         setTheme(savedTheme);
       } else {
         setTheme("light");
-        localStorage.setItem("theme", "light");
+        window.localStorage.setItem("theme", "light");
       }
     }
   }, []);
 
   const toggleTheme = () => {
+    if (typeof window === undefined) return
+
     const newTheme = theme === "light" ? "dark" : "light";
     setTheme(newTheme);
-    localStorage.setItem("theme", newTheme);
+    window.localStorage.setItem("theme", newTheme);
   };
 
   const themeColors = themeData[theme];

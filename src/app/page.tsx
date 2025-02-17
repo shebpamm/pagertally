@@ -11,14 +11,19 @@ import { useInterval } from "usehooks-ts";
 
 export default function MoneyDisplay() {
   const getTz = () => new Date().getTimezoneOffset() * 60 * 1000;
-  const getCompensation = () => calculateStandbyCompensationUntil(Date.now() - getTz(), pay);
+  const getCompensation = () =>
+    calculateStandbyCompensationUntil(Date.now() - getTz(), pay);
 
-  const initialPayObj = localStorage.getItem("standbyCompensation");
-  const initialPay = initialPayObj ? parseFloat(initialPayObj) : 0;
+  let initialPay;
+  if (typeof window !== "undefined") {
+    const initialPayObj = window.localStorage.getItem("standbyCompensation");
+    initialPay = initialPayObj ? parseFloat(initialPayObj) : 0;
+  } else {
+    initialPay = 0;
+  }
+
   const [pay, setPay] = useState(initialPay);
-  const [compensation, setCompensation] = useState(
-    getCompensation()
-  );
+  const [compensation, setCompensation] = useState(getCompensation());
 
   const { theme, toggleTheme, themeColors } = useTheme();
 
@@ -39,7 +44,9 @@ export default function MoneyDisplay() {
       <div
         className={`absolute top-4 right-4 p-2 ${themeColors.settingsButton} transition-colors cursor-pointer`}
       >
-        <StandbyCompensationSettings onCompensationChange={pay => setPay(pay)}/>
+        <StandbyCompensationSettings
+          onCompensationChange={(pay) => setPay(pay)}
+        />
       </div>
       <div className="text-center">
         <h1

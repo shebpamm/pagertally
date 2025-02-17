@@ -10,7 +10,8 @@ interface StandbyCompensationSettingsProps {
 }
 
 export default function StandbyCompensationSettings({ onCompensationChange }: StandbyCompensationSettingsProps) {
-  const [isOpen, setIsOpen] = useState(localStorage.getItem("standbyCompensation") ? false : true);
+
+  const [isOpen, setIsOpen] = useState(typeof window !== undefined ? false : (localStorage.getItem("standbyCompensation") ? false : true));
   const [compensation, setCompensation] = useLocalStorage<number>("standbyCompensation", 0);
 
   const handleSave = () => {
