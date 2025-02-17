@@ -3,10 +3,18 @@
 import { useState } from "react"
 import { Settings, Sun, Moon } from "lucide-react"
 import { useTheme } from "../contexts/ThemeContext"
+import { calculateStandbyCompensationUntil } from "../lib/calc"
 
-export default function DollarDisplay() {
-  const [amount, setAmount] = useState(1000)
+import { useInterval } from 'usehooks-ts'
+
+export default function MoneyDisplay() {
+  const [amount, setAmount] = useState(0)
   const { theme, toggleTheme, themeColors } = useTheme()
+
+  useInterval(() => {
+    const { totalCompensation } = calculateStandbyCompensationUntil(Date.now(), 1)
+    setAmount(totalCompensation)
+  }, 1000)
 
   return (
     <div
@@ -23,8 +31,7 @@ export default function DollarDisplay() {
       </button>
       <div className="text-center">
         <h1 className={`text-6xl sm:text-8xl md:text-9xl font-bold ${themeColors.text}`}>
-          <span className="text-4xl sm:text-6xl md:text-7xl align-top mr-1">$</span>
-          {amount.toLocaleString()}
+          {amount.toFixed(2).toLocaleString()}€
         </h1>
         <p className={`mt-4 text-xl ${themeColors.subText}`}>Total Amount</p>
       </div>
