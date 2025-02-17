@@ -2,7 +2,7 @@
 
 import type React from "react";
 import { createContext, useState, useContext, useEffect } from "react";
-import themeData from "../../styles/theme.json";
+import themeData from "../styles/theme.json";
 
 type Theme = "light" | "dark";
 
