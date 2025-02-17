@@ -36,11 +36,11 @@ export default function MoneyDisplay() {
       >
         {theme === "light" ? <Moon size={24} /> : <Sun size={24} />}
       </button>
-      <button
-        className={`absolute top-4 right-4 p-2 ${themeColors.settingsButton} transition-colors`}
+      <div
+        className={`absolute top-4 right-4 p-2 ${themeColors.settingsButton} transition-colors cursor-pointer`}
       >
         <StandbyCompensationSettings onCompensationChange={pay => setPay(pay)}/>
-      </button>
+      </div>
       <div className="text-center">
         <h1
           className={`text-6xl sm:text-8xl md:text-9xl font-bold ${themeColors.text}`}

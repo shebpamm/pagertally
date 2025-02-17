@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogFooter } from "@/components/ui/dialog";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
+import { Settings } from "lucide-react";
 
 interface StandbyCompensationSettingsProps {
   onCompensationChange: (value: number) => void;
@@ -22,7 +23,7 @@ export default function StandbyCompensationSettings({ onCompensationChange }: St
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
-        <Button variant="outline">Standby Duty Settings</Button>
+        <Settings className="w-6 h-6" />
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
