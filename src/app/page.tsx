@@ -8,12 +8,14 @@ import { calculateStandbyCompensationUntil } from "../lib/calc"
 import { useInterval } from 'usehooks-ts'
 
 export default function MoneyDisplay() {
-  const [amount, setAmount] = useState(0)
+  const [compensation, setCompensation] = useState(calculateStandbyCompensationUntil(Date.now(), 1))
   const { theme, toggleTheme, themeColors } = useTheme()
 
   useInterval(() => {
-    const { totalCompensation } = calculateStandbyCompensationUntil(Date.now(), 1)
-    setAmount(totalCompensation)
+    const tz = new Date().getTimezoneOffset()*60*1000
+    const comp = calculateStandbyCompensationUntil(Date.now() - tz, 16.405)
+    console.log(comp)
+    setCompensation(comp)
   }, 1000)
 
   return (
@@ -31,7 +33,7 @@ export default function MoneyDisplay() {
       </button>
       <div className="text-center">
         <h1 className={`text-6xl sm:text-8xl md:text-9xl font-bold ${themeColors.text}`}>
-          {amount.toFixed(2).toLocaleString()}€
+          {compensation.totalCompensation.toFixed(2).toLocaleString()}€
         </h1>
         <p className={`mt-4 text-xl ${themeColors.subText}`}>Total Amount</p>
       </div>

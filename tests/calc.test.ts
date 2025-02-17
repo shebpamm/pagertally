@@ -30,4 +30,11 @@ describe("calculateStandbyCompensationUntil", () => {
         expect(result.totalHoursWorked).toBeCloseTo(75, 1); // Should be within weekend shift
         expect(result.totalCompensation).toBeCloseTo(75 * BASE_PAY, 1);
     });
+
+    test("handles starting shift in other month (Monday 19:00 UTC)", () => {
+        const timestamp = new Date("2025-02-17T19:00:00Z").getTime(); // Saturday 12:00 UTC
+        const result = calculateStandbyCompensationUntil(timestamp, BASE_PAY);
+        expect(result.totalHoursWorked).toBeCloseTo(1, 1); // Should be within weekend shift
+        expect(result.totalCompensation).toBeCloseTo(1 * BASE_PAY, 1);
+    });
 });
